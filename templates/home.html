@@ -1,0 +1,29 @@
+<!-- home.html -->
+{% extends 'base.html' %}
+
+{% block content %}
+  <header>
+    <div class="container">
+        <div id="branding">
+            <h1>My Discord App</h1>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="{{ url_for('login') }}">Log In</a></li>
+                <li><a href="{{ url_for('signup') }}">Sign Up</a></li>
+            </ul>
+        </nav>
+    </div>
+  </header>
+  <main>
+    <div class="container">
+      <h1>Welcome to My Discord App</h1>
+      <p>This is a simple chat application similar to Discord. Create chat rooms, add friends, and send direct messages to people.</p>
+
+      <div class="buttons">
+        <a class="button" href="{{ url_for('login') }}">Log In</a>
+        <a class="button" href="{{ url_for('signup') }}">Sign Up</a>
+      </div>
+    </div>
+  </main>
+{% endblock %}
