@@ -4,6 +4,7 @@ from flask_login import LoginManager, UserMixin, login_user, login_required, log
 from extensions import db
 from models import User, Channel, Message, Friend
 from flask_migrate import Migrate
+import random
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:123@localhost/chatroom'
@@ -43,6 +44,22 @@ def is_valid_password(password):
 def home():
     return render_template('home.html')
 
+def generate_unique_id():
+    return random.randint(10**18, 10**19 - 1)
+
+
+def generate_random_tag():
+    return random.randint(1000, 9999)
+
+
+def generate_username_tag(username):
+    tag = generate_random_tag()
+    username_tag = f"{username}#{tag}"
+    while User.query.filter_by(username_tag=username_tag).first() is not None:
+        tag = generate_random_tag()
+        username_tag = f"{username}#{tag}"
+    return username_tag
+
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if current_user.is_authenticated:
@@ -70,15 +87,18 @@ def signup():
 
         if password != confirm_password:
             flash('Passwords do not match.')
-        elif User.query.filter_by(username=username).first():
-            flash('Username is already taken.')
-        else:
-            new_user = User(username=username)
-            new_user.set_password(password)
-            db.session.add(new_user)
-            db.session.commit()
-            flash('Account created successfully.')
-            return redirect(url_for('login'))
+        tag = generate_random_tag()
+        username_tag = f"{username}#{tag}"
+        while User.query.filter_by(username_tag=username_tag).first() is not None:
+            tag = generate_random_tag()
+            username_tag = f"{username}#{tag}"
+
+        new_user = User(username=username, tag=tag, username_tag=username_tag)
+        new_user.set_password(password)
+        db.session.add(new_user)
+        db.session.commit()
+        flash('Account created successfully.')
+        return redirect(url_for('login'))
 
     return render_template('signup.html')
 
