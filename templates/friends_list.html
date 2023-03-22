@@ -1,0 +1,62 @@
+{% extends "base_with_sidebar.html" %}
+
+{% block content %}
+
+<div class="dashboard-content">
+    <div class="friend-requests">
+      <h2>Friend Requests</h2>
+      <ul>
+        {% for request in friend_requests %}
+          <li>
+            {{ request.user1.username }}
+            {% if request.user2_id == current_user.id %}
+              <form action="{{ url_for('accept_friend_request') }}" method="post">
+                <input type="hidden" name="friend_id" value="{{ request.user1.id }}">
+                <input type="submit" value="Accept">
+              </form>
+              <form action="{{ url_for('decline_friend_request') }}" method="post">
+                <input type="hidden" name="friend_id" value="{{ request.user1.id }}">
+                <input type="submit" value="Decline">
+              </form>
+            {% endif %}
+          </li>
+        {% endfor %}
+      </ul>
+    </div>
+
+    <div class="friends">
+        <h2>Friends</h2>
+        {% for friend in friends %}
+          <div class="friend">
+            <span>{{ friend.username }}</span>
+            <a href="{{ url_for('get_messages', friend_id=friend.id) }}">{{ "Send message" }}</a>
+            <form action="{{ url_for('remove_friend') }}" method="post">
+              <input type="hidden" name="friend_id" value="{{ friend.id }}">
+              <input type="submit" value="Remove Friend">
+            </form>
+          </div>
+        {% endfor %}
+
+
+        <h2>Add Friend</h2>
+        <form action="{{ url_for('request_friend') }}" method="post">
+          <label for="friend_id">Friend ID:</label>
+          <input type="number" name="friend_id" required>
+          <input type="submit" value="Send Friend Request">
+        </form>
+      </div>
+    </div>
+    
+    <script>
+        // Toggle friend requests and friends list
+        function toggleDashboardContent() {
+          const friendRequests = document.querySelector(".friend-requests");
+          const friends = document.querySelector(".friends");
+    
+          friendRequests.classList.toggle("hide");
+          friends.classList.toggle("hide");
+        }
+      </script>
+
+
+{% endblock %}

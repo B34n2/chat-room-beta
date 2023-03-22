@@ -1,4 +1,5 @@
 /* styles.css */
+
 body {
     font-family: 'Roboto', sans-serif;
     line-height: 1.6;
@@ -127,7 +128,6 @@ form {
     width: 100%;
     max-width: 400px;
     margin: 0 auto;
-    padding: 20px;
     background-color: #94000000;
 
 }
@@ -194,3 +194,74 @@ form input[type="submit"]:hover {
     text-align: center;
     margin-top: 20px;
 }
+
+.sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 60px;
+    background-color: #f8f9fa;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.sidebar-icon {
+    display: inline-block;
+    padding: 15px;
+    color: #495057;
+    text-decoration: none;
+    font-size: 24px;
+}
+
+.sidebar-icon:hover {
+    color: #343a40;
+}
+
+.main-content {
+    padding-left: 70px;
+}
+
+.remove-friend-form {
+    display: inline-block;
+  }
+  
+.remove-friend-btn {
+display: block;
+width: 50% !important;
+font-size: 0.8rem !important;
+padding: 2px 4px !important;
+border-radius: 0px!important;
+}
+
+.dashboard-content {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+  }
+
+.friend-requests,
+.friends {
+  padding: 10px;
+  margin-right: 20px;
+  width: 300px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  background-color: #f8f8f8;
+  box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.1);
+}
+
+
+.friend form input[type="submit"] {
+    padding: 1px 5px;
+    }
+
+.friend form input[type="submit"]:hover {
+    background-color: #d9d9d9;
+    }
+form label {
+    display: block;
+    margin-bottom: 5px;
+    }

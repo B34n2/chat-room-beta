@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block sidebar %}
+    <div class="sidebar">
+        <a href="{{ url_for('friends_list') }}" class="sidebar-icon"><i class="fas fa-user-friends"></i></a>
+        <a href="{{ url_for('settings') }}" class="sidebar-icon"><i class="fas fa-cog"></i></a>
+    </div>
+{% endblock %}
+
+{% block body %}
+
+<div class="main-content">
+    {% block content %}{% endblock %}
+</div>
+    
+{% endblock %}

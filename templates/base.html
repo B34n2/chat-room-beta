@@ -5,8 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Chat Room</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css">
 </head>
+
 <body>
+    {% block sidebar %}{% endblock %}
+
     {% with messages = get_flashed_messages() %}
     {% if messages %}
     <ul>
@@ -16,6 +20,8 @@
     </ul>
     {% endif %}
     {% endwith %}
-    {% block content %}{% endblock %}
+    <div class="main-content">
+        {% block content %}{% endblock %}
+    </div>
 </body>
 </html>
